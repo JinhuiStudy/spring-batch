@@ -1,0 +1,44 @@
+version: "3.2"
+services:
+  database:
+    container_name: database
+    image: mariadb
+    networks:
+      - database
+    volumes:
+      - ./docker/mariadb/etc/mysql/conf.d:/etc/mysql/conf.d:ro
+      - ./docker/mariadb/var/lib/mysql:/var/lib/mysql
+      - ./docker/mariadb/var/log/maria:/var/log/maria
+    environment:
+      - TZ=Asia/Seoul
+      - MYSQL_DATABASE=root
+      - MYSQL_ROOT_PASSWORD=mariadb
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_DATABASE=batch
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    ports:
+      - "3306:3306"
+    restart: always
+
+  jenkins:
+    container_name: 'jenkins'
+    image: "jenkins/jenkins:latest"
+    restart: always
+    ports:
+      - "8080:8080"
+      - "5000:5000"
+      - "50000:50000"
+    networks:
+      - jenkins
+    volumes:
+      - ./docker/jenkins:/var/jenkins_home
+    environment:
+      TZ: "Asia/Seoul"
+#  /var/jenkins_home/secrets/initialAdminPassword
+
+# sudo lsof -i :port
+networks:
+  database:
+    driver: bridge
+  jenkins:
+    driver: bridge
