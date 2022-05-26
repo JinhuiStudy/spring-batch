@@ -20,22 +20,6 @@ services:
       - "8081:8081"
 #    restart: always
 
-#  jenkins:
-#    container_name: 'jenkins'
-#    image: "jenkins/jenkins:latest"
-#    restart: always
-#    ports:
-#      - "8080:8080"
-#      - "5000:5000"
-#      - "50000:50000"
-#    networks:
-#      - jenkins
-#    volumes:
-#      - ./docker/jenkins:/var/jenkins_home
-#    environment:
-#      TZ: "Asia/Seoul"
-#  /var/jenkins_home/secrets/initialAdminPassword
-
   mysql:
     image: mysql:5.7.25
     container_name: dataflow-mysql
@@ -116,7 +100,7 @@ services:
          wget --no-check-certificate -P /tmp/ https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh &&
          chmod a+x /tmp/wait-for-it.sh &&
          /tmp/wait-for-it.sh mysql:3306 -- /cnb/process/web"
-    restart: always
+#    restart: always
     volumes:
       - ./docker/dataflow-server:/var/lib/dataflow-server
       - ./docker/dataflow-server/logs:/var/log/dataflow-server
@@ -167,7 +151,7 @@ services:
          wget --no-check-certificate -P /tmp/ https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh &&
          chmod a+x /tmp/wait-for-it.sh &&
          /tmp/wait-for-it.sh mysql:3306 -- /cnb/process/web"
-    restart: always
+#    restart: always
     volumes:
       - ./docker/skipper-server:/var/lib/skipper-server
       - ./docker/skipper-server/logs:/var/log/skipper-server
