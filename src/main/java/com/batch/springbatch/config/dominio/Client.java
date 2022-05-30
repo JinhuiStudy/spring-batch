@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -15,6 +18,8 @@ public class Client {
 	private String age;
 	private String email;
 
+	private List<Transaction> transactions = new ArrayList<>();
+
 	@Override
 	public String toString() {
 		return "Client{" +
@@ -22,6 +27,7 @@ public class Client {
 	                ", lastName ='" + lastName + "'" +
 	                ", age='" + age + "'" +
 	                ", email='" + email + "'" +
-	                '}';
+				(transactions.isEmpty() ? "" : ", transacoes=" + transactions)
+				+ '}';
 	}
 }

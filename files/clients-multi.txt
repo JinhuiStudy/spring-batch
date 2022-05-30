@@ -1,0 +1,9 @@
+0,Joao,Silva,32,joao@test.com
+1,t1c1,Cad,50.80
+1,t2c1,TV,1500
+0,Maria,Silva,30,maria@test.com
+1,t1c2,GelaDra duplex,2000
+1,t2c2,Mesa,4500
+1,t3c2,Sofa,1099,99
+0,Jose,Silva,20,jose@test.com
+1,t1c3,Com no Ifood,500.45

@@ -36,10 +36,19 @@ public class BatchJobConfig {
     private final JobBuilderFactory jobBuilderFactory;
 
 //    @Bean
-    public Job fileFixedWidthJob(Step fileFixedWidthStep) {
+//    public Job fileFixedWidthJob(Step fileFixedWidthStep) {
+//        return jobBuilderFactory
+//                .get("fileFixedWidthJob")
+//                .start(fileFixedWidthStep)
+//                .incrementer(new RunIdIncrementer())
+//                .build();
+//    }
+
+    @Bean
+    public Job fileMultipleFormatsJob(Step fileMultipleFormatsStep) {
         return jobBuilderFactory
-                .get("fileFixedWidthJob")
-                .start(fileFixedWidthStep)
+                .get("fileMultipleFormatsJob")
+                .start(fileMultipleFormatsStep)
                 .incrementer(new RunIdIncrementer())
                 .build();
     }

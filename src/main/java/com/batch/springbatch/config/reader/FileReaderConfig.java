@@ -3,6 +3,7 @@ package com.batch.springbatch.config.reader;
 import com.batch.springbatch.config.dominio.Client;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.transform.Range;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +39,20 @@ public class FileReaderConfig {
 				.delimited()
 				.names("name", "lastName", "age", "email")
 				.targetType(Client.class)
+				.build();
+	}
+
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	@StepScope
+	@Bean
+	public FlatFileItemReader fileMultiplesFormatsItemReader(
+			@Value("#{jobParameters['clientsMulti']}") Resource clientsMulti,
+			LineMapper lineMapper
+	) {
+		return new FlatFileItemReaderBuilder<>()
+				.name("fileMultiplesFormatsItemReader")
+				.resource(clientsMulti)
+				.lineMapper(lineMapper)
 				.build();
 	}
 
