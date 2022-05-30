@@ -1,4 +1,4 @@
-package com.batch.springbatch.config;
+package com.batch.springbatch.config.job;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,8 +7,7 @@ import org.springframework.batch.core.annotation.AfterJob;
 import org.springframework.batch.core.annotation.BeforeJob;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableBatchProcessing
 @RequiredArgsConstructor
-public class BatchConfig {
+public class BatchJobConfig {
 
     // [1]
     // 배치 job을 실행할 때 발생하는 주요 이슈는 Job이 재시작할 때의 동작과 관련 있다.
@@ -35,19 +34,36 @@ public class BatchConfig {
     // @AfterJob
 
     private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
+
+//    @Bean
+    public Job fileFixedWidthJob(Step fileFixedWidthStep) {
+        return jobBuilderFactory
+                .get("fileFixedWidthJob")
+                .start(fileFixedWidthStep)
+                .incrementer(new RunIdIncrementer())
+                .build();
+    }
+
+    @Bean
+    public Job fileDelimitedJob(Step fileDelimitedStep) {
+        return jobBuilderFactory
+                .get("fileDelimitedJob")
+                .start(fileDelimitedStep)
+                .incrementer(new RunIdIncrementer())
+                .build();
+    }
 
     @Bean
     @AfterJob()
-    public Job footballJob() {
+    public Job footballJob(Step playerLoad, Step gameLoad, Step playerSummarization) {
 
         return this.jobBuilderFactory.get("footballJob")
 //                .preventRestart() // 1. 재시작 방지
                 .listener(new sampleListener())
 //                .listener(new JobLoggerListener())
-                .start(playerLoad())
-                .next(gameLoad())
-                .next(playerSummarization())
+                .start(playerLoad)
+                .next(gameLoad)
+                .next(playerSummarization)
                 .build();
     }
 
@@ -90,31 +106,6 @@ public class BatchConfig {
         }
     }
 
-    private Step playerLoad() {
-        return stepBuilderFactory.get("playerLoad")
-                .tasklet((contribution, chunkContext) -> {
-                    log.info("======> Player Load");
-                    return RepeatStatus.FINISHED;
-                })
-                .build();
-    }
 
-    private Step gameLoad() {
-        return stepBuilderFactory.get("gameLoad")
-                .tasklet((contribution, chunkContext) -> {
-                    log.info("======> Game Load");
-                    return RepeatStatus.FINISHED;
-                })
-                .build();
-    }
-
-    private Step playerSummarization() {
-        return stepBuilderFactory.get("playerSummarization")
-                .tasklet((contribution, chunkContext) -> {
-                    log.info("======> Player Summarization");
-                    return RepeatStatus.FINISHED;
-                })
-                .build();
-    }
 
 }
