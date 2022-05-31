@@ -1,4 +1,4 @@
-package com.batch.springbatch.config.reader.multi.form;
+package com.batch.springbatch.config.reader.file;
 
 import com.batch.springbatch.config.dominio.Client;
 import com.batch.springbatch.config.dominio.Transaction;
@@ -6,11 +6,11 @@ import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ItemStreamException;
 import org.springframework.batch.item.ItemStreamReader;
 
-public class FileClientTransactionReaderConfig implements ItemStreamReader<Client> {
+public class FileClientTransactionReader implements ItemStreamReader<Client> {
   private Object object;
   private final ItemStreamReader<Object> delegate;
 
-  public FileClientTransactionReaderConfig(ItemStreamReader<Object> delegate) {
+  public FileClientTransactionReader(ItemStreamReader<Object> delegate) {
     this.delegate = delegate;
   }
 

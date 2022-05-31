@@ -1,4 +1,4 @@
-package com.batch.springbatch.config.reader.multi.form;
+package com.batch.springbatch.config.reader.file;
 
 import com.batch.springbatch.config.dominio.Client;
 import com.batch.springbatch.config.dominio.Transaction;
@@ -19,7 +19,7 @@ public class FileClientTransactionLineMapperConfig {
   @SuppressWarnings({"rawtypes", "unchecked"})
   @Bean
   public PatternMatchingCompositeLineMapper lineMapper() {
-    PatternMatchingCompositeLineMapper lineMapper = new PatternMatchingCompositeLineMapper();
+    var lineMapper = new PatternMatchingCompositeLineMapper();
     lineMapper.setTokenizers(tokenizers());
     lineMapper.setFieldSetMappers(fieldSetMappers());
     return lineMapper;
@@ -27,7 +27,7 @@ public class FileClientTransactionLineMapperConfig {
 
   @SuppressWarnings("rawtypes")
   private Map<String, FieldSetMapper> fieldSetMappers() {
-    Map<String, FieldSetMapper> fieldSetMappers = new HashMap<>();
+    var fieldSetMappers = new HashMap<String, FieldSetMapper>();
     fieldSetMappers.put("0*", fieldSetMapper(Client.class));
     fieldSetMappers.put("1*", fieldSetMapper(Transaction.class));
     return fieldSetMappers;
@@ -35,27 +35,27 @@ public class FileClientTransactionLineMapperConfig {
 
   @SuppressWarnings({"rawtypes", "unchecked"})
   private FieldSetMapper fieldSetMapper(Class className) {
-    BeanWrapperFieldSetMapper fieldSetMapper = new BeanWrapperFieldSetMapper();
+    var fieldSetMapper = new BeanWrapperFieldSetMapper();
     fieldSetMapper.setTargetType(className);
     return fieldSetMapper;
   }
 
   private Map<String, LineTokenizer> tokenizers() {
-    Map<String, LineTokenizer> tokenizers = new HashMap<>();
+    var tokenizers = new HashMap<String, LineTokenizer>();
     tokenizers.put("0*", clientLineTokenizer());
     tokenizers.put("1*", transactionLineTokenizer());
     return tokenizers;
   }
 
   private LineTokenizer clientLineTokenizer() {
-    DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
+    var lineTokenizer = new DelimitedLineTokenizer();
     lineTokenizer.setNames("name", "lastName", "age", "email");
     lineTokenizer.setIncludedFields(1, 2, 3, 4);
     return lineTokenizer;
   }
 
   private LineTokenizer transactionLineTokenizer() {
-    DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
+    var lineTokenizer = new DelimitedLineTokenizer();
     lineTokenizer.setNames("id", "description", "value");
     lineTokenizer.setIncludedFields(1, 2, 3);
     return lineTokenizer;

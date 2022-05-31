@@ -1,5 +1,7 @@
 package com.batch.springbatch.config.job;
 
+import com.batch.springbatch.config.dominio.Bill;
+import com.batch.springbatch.config.dominio.Usage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.*;
@@ -8,6 +10,9 @@ import org.springframework.batch.core.annotation.BeforeJob;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,6 +39,14 @@ public class BatchJobConfig {
     // @AfterJob
 
     private final JobBuilderFactory jobBuilderFactory;
+
+    @Bean
+    public Job billJob(Step billStep) {
+        return jobBuilderFactory.get("billJob")
+                .incrementer(new RunIdIncrementer())
+                .start(billStep)
+                .build();
+    }
 
 //    @Bean
 //    public Job fileFixedWidthJob(Step fileFixedWidthStep) {
@@ -62,8 +75,8 @@ public class BatchJobConfig {
                 .build();
     }
 
-    @Bean
-    @AfterJob()
+//    @Bean
+//    @AfterJob()
     public Job footballJob(Step playerLoad, Step gameLoad, Step playerSummarization) {
 
         return this.jobBuilderFactory.get("footballJob")

@@ -25,3 +25,16 @@
 ##### https://www.petrikainulainen.net/programming/spring-framework/spring-batch-tutorial-reading-information-from-a-rest-api/
 #### 6. Kafka Spring Batch Tip (Github) 
 ##### https://github.com/spring-tips/kafka-and-spring-batch/blob/master/src/main/java/com/example/bk/consumer/ConsumerApplication.java
+#### 7. data Flow Ref
+##### https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/
+
+### Query
+CREATE TABLE IF NOT EXISTS BILL_STATEMENTS
+(
+id int,
+first_name varchar(50),
+last_name varchar(50),
+minutes int,
+data_usage int,
+bill_amount decimal(10,2)
+);

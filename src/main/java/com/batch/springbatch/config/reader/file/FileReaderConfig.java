@@ -1,4 +1,4 @@
-package com.batch.springbatch.config.reader;
+package com.batch.springbatch.config.reader.file;
 
 import com.batch.springbatch.config.dominio.Client;
 import org.springframework.batch.core.configuration.annotation.StepScope;

@@ -1,7 +1,7 @@
 package com.batch.springbatch.config.step;
 
 import com.batch.springbatch.config.dominio.Client;
-import com.batch.springbatch.config.reader.multi.form.FileClientTransactionReaderConfig;
+import com.batch.springbatch.config.reader.file.FileClientTransactionReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -48,7 +48,7 @@ public class FileStepConfig {
 		return stepBuilderFactory
 				.get("fileMultipleFormatsStep")
 				.chunk(1)
-				.reader(new FileClientTransactionReaderConfig(fileMultiplesFormatsItemReader))
+				.reader(new FileClientTransactionReader(fileMultiplesFormatsItemReader))
 				.writer(filePrintWriter)
 				.build();
 	}
