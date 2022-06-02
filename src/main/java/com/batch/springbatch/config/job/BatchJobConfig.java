@@ -60,7 +60,7 @@ public class BatchJobConfig {
     @Bean
     public Job filesMultipleFormatsJob(Step filesMultipleFormatsStep) {
         return jobBuilderFactory
-                .get("fileMultipleFormatsJob")
+                .get("filesMultipleFormatsJob")
                 .start(filesMultipleFormatsStep)
                 .incrementer(new RunIdIncrementer())
                 .build();
