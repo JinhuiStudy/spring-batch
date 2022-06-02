@@ -8,6 +8,7 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -49,6 +50,19 @@ public class FileStepConfig {
 				.get("fileMultipleFormatsStep")
 				.chunk(1)
 				.reader(new FileClientTransactionReader(fileMultiplesFormatsItemReader))
+				.writer(filePrintWriter)
+				.build();
+	}
+
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	@Bean
+	public Step filesMultipleFormatsStep(
+			MultiResourceItemReader<Client> filesMultiplesFormatsItemReader,
+			ItemWriter filePrintWriter) {
+		return stepBuilderFactory
+				.get("filesMultipleFormatsStep")
+				.chunk(1)
+				.reader(filesMultiplesFormatsItemReader)
 				.writer(filePrintWriter)
 				.build();
 	}

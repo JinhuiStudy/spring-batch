@@ -4,7 +4,9 @@ import com.batch.springbatch.config.dominio.Client;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.LineMapper;
+import org.springframework.batch.item.file.MultiResourceItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.batch.item.file.builder.MultiResourceItemReaderBuilder;
 import org.springframework.batch.item.file.transform.Range;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -55,5 +57,20 @@ public class FileReaderConfig {
 				.lineMapper(lineMapper)
 				.build();
 	}
+
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	@StepScope
+	@Bean
+	public MultiResourceItemReader filesMultiplesFormatsItemReader(
+			@Value("#{jobParameters['clientsMultics']}") Resource[] clientsMultics,
+			FlatFileItemReader fileMultiplesFormatsItemReader
+	) {
+		return new MultiResourceItemReaderBuilder<>()
+				.name("filesMultiplesFormatsItemReader")
+				.resources(clientsMultics)
+				.delegate(new FilesClientTransactionReader(fileMultiplesFormatsItemReader))
+				.build();
+	}
+
 
 }

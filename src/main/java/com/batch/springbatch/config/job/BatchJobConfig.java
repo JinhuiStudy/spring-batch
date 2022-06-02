@@ -40,13 +40,13 @@ public class BatchJobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
 
-    @Bean
-    public Job billJob(Step billStep) {
-        return jobBuilderFactory.get("billJob")
-                .incrementer(new RunIdIncrementer())
-                .start(billStep)
-                .build();
-    }
+//    @Bean
+//    public Job billJob(Step billStep) {
+//        return jobBuilderFactory.get("billJob")
+//                .incrementer(new RunIdIncrementer())
+//                .start(billStep)
+//                .build();
+//    }
 
 //    @Bean
 //    public Job fileFixedWidthJob(Step fileFixedWidthStep) {
@@ -56,6 +56,15 @@ public class BatchJobConfig {
 //                .incrementer(new RunIdIncrementer())
 //                .build();
 //    }
+
+    @Bean
+    public Job filesMultipleFormatsJob(Step filesMultipleFormatsStep) {
+        return jobBuilderFactory
+                .get("fileMultipleFormatsJob")
+                .start(filesMultipleFormatsStep)
+                .incrementer(new RunIdIncrementer())
+                .build();
+    }
 
     @Bean
     public Job fileMultipleFormatsJob(Step fileMultipleFormatsStep) {
