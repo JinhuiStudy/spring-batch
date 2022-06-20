@@ -2,15 +2,13 @@
 
 ### Notion: https://highfalutin-giant-304.notion.site/Spring-Batch-be9c44077c59426d82d8c17c0efc4b9a
 
-### Spring-Data-Flow: https://dataflow.spring.io/docs
-
 ### 과정
 ### 메뉴에서 런타임을 클릭 합니다. http-ingest.log 을 클릭합니다. stdout 대시보드의 텍스트 상자에 경로 복사
 ##### curl http://localhost:20100 -H "Content-type: text/plain" -d "Happy streaming"
 ##### docker exec -it skipper tail -f 
 
 ### Program Argument Add
-##### clients=file:files/clients.txt clientsMulti=file:files/clients-multi.txt
+##### clients=file:files/clients.txt clientsMulti=file:files/clients-multi.txt clientsMultics=file:files/clients-multi-*.txt
 
 ### 참고 링크 
 #### 1. 스프링 배치 - 개요 
@@ -25,8 +23,6 @@
 ##### https://www.petrikainulainen.net/programming/spring-framework/spring-batch-tutorial-reading-information-from-a-rest-api/
 #### 6. Kafka Spring Batch Tip (Github) 
 ##### https://github.com/spring-tips/kafka-and-spring-batch/blob/master/src/main/java/com/example/bk/consumer/ConsumerApplication.java
-#### 7. data Flow Ref
-##### https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/
 
 ### Query
 CREATE TABLE IF NOT EXISTS BILL_STATEMENTS

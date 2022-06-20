@@ -1,7 +1,6 @@
 package com.batch.springbatch.config.job;
 
 import com.batch.springbatch.config.dominio.Bill;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 import javax.sql.DataSource;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,9 +40,8 @@ class BatchJobConfigTest {
                                      rs.getString("LAST_NAME"),
                                     rs.getLong("DATA_USAGE"),
                                     rs.getLong("MINUTES"),
-                                    rs.getDouble("bill_amount")
-                        )
-        );;
+                                    rs.getDouble("bill_amount")));
+
 
         assertThat(billStatements.size()).isEqualTo(5);
 
